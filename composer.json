@@ -1,0 +1,17 @@
+{
+    "name": "phpislove/analyser",
+    "description": "The source code of my experimental project called \"analyser\".",
+    "license": "MIT",
+    "require": {
+        "cpliakas/git-wrapper": "~1.0",
+        "symfony/console": "~2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phpislove\\": "src/Phpislove"
+        }
+    }
+}
