@@ -1,0 +1,6 @@
+#0. Initial commit
+#1. Pull all needed dependencies
+#2. Configure PHPUnit
+#3. Add any test case (just to ensure it all works properly)
+#4. Add executable in bin/
+#5. Work on "add-project" command and ProjectsList class <====
