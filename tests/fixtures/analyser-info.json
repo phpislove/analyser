@@ -1,0 +1,8 @@
+{
+    "language": "php",
+    "third-party": {
+        "packages": [
+            "phpunit/phpunit"
+        ]
+    }
+}
