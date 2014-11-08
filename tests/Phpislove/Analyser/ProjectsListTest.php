@@ -30,4 +30,12 @@ class ProjectsListTest extends TestCase {
         );
     }
 
+    /** @test */ function it_returns_all_added_projects()
+    {
+        $this->assertEquals(
+            $this->instance->getAll(),
+            ['projects' => ['my-project' => ['path' => 'path/to/project']]]
+        );
+    }
+
 }

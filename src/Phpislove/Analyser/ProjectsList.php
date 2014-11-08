@@ -38,6 +38,19 @@ class ProjectsList {
     }
 
     /**
+     * @return array
+     */
+    public function getAll()
+    {
+        if ( ! $this->projects)
+        {
+            $this->load();
+        }
+
+        return $this->projects;
+    }
+
+    /**
      * @return void
      */
     protected function load()
