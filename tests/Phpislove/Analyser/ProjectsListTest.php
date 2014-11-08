@@ -9,7 +9,7 @@ class ProjectsListTest extends TestCase {
 
     function setUp()
     {
-        $this->instance = new ProjectsList;
+        $this->instance = new ProjectsList(getcwd());
     }
 
     /** @test */ function it_is_initializable()
@@ -17,6 +17,16 @@ class ProjectsListTest extends TestCase {
         $this->assertInstanceOf(
             'Phpislove\Analyser\ProjectsList',
             $this->instance
+        );
+    }
+
+    /** @test */ function it_adds_a_project()
+    {
+        $this->instance->add('path/to/project', 'my-project');
+
+        $this->assertEquals(
+            ['projects' => ['my-project' => ['path' => 'path/to/project']]],
+            json_decode(file_get_contents(getcwd().'/projects.json'), true)
         );
     }
 
