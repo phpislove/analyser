@@ -4,8 +4,25 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Phpislove\Analyser\ProjectsList;
 
 class ShowProjectsCommand extends Command {
+
+    /**
+     * @var ProjectsList
+     */
+    protected $projects;
+
+    /**
+     * @param ProjectsList|null $projects
+     * @return ShowProjectsCommand
+     */
+    public function __construct(ProjectsList $projects = null)
+    {
+        $this->projects = $projects ?: new ProjectsList(getcwd());
+
+        parent::__construct();
+    }
 
     /**
      * @return void
@@ -25,7 +42,23 @@ class ShowProjectsCommand extends Command {
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $psloc = $input->getOption('with-psloc');
+        $language = $input->getOption('language');
 
+        $projects = is_null($language) ?
+            $this->projects->getAll() :
+            $this->projects->filterAll(function($project) use($language)
+            {
+                return $project->getLanguage() == $language;
+            })
+        ;
+
+        $output->writeln(sprintf('Showing tracked projects (%s)', count($projects)));
+
+        if ( ! is_null($language))
+        {
+            $output->writeln('Only written in '.ucfirst($language));
+        }
     }
 
 }

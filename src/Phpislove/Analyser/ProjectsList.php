@@ -44,10 +44,7 @@ class ProjectsList {
      */
     public function getAll()
     {
-        if ( ! $this->projects)
-        {
-            $this->load();
-        }
+        $this->load();
 
         return $this->projects;
     }
@@ -58,6 +55,8 @@ class ProjectsList {
      */
     public function filterAll(Closure $filter)
     {
+        $this->load();
+
         return array_filter($this->projects['projects'], function($project) use($filter)
         {
             return $filter(new ProjectInfo($project['path']));
@@ -69,6 +68,11 @@ class ProjectsList {
      */
     protected function load()
     {
+        if ($this->projects)
+        {
+            return;
+        }
+
         if ( ! file_exists($path = $this->directory.'/projects.json'))
         {
             file_put_contents($path, json_encode([], JSON_PRETTY_PRINT));
