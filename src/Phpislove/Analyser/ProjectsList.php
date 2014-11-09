@@ -1,5 +1,7 @@
 <?php namespace Phpislove\Analyser;
 
+use Closure;
+
 class ProjectsList {
 
     /**
@@ -51,6 +53,18 @@ class ProjectsList {
     }
 
     /**
+     * @param Closure $filter
+     * @return array
+     */
+    public function filterAll(Closure $filter)
+    {
+        return array_filter($this->projects['projects'], function($project) use($filter)
+        {
+            return $filter(new ProjectInfo($project['path']));
+        });
+    }
+
+    /**
      * @return void
      */
     protected function load()
@@ -74,6 +88,15 @@ class ProjectsList {
             $this->directory.'/projects.json',
             json_encode($this->projects, JSON_PRETTY_PRINT)
         );
+    }
+
+    /**
+     * @param array $projects
+     * @return void
+     */
+    public function setProjects(array $projects)
+    {
+        $this->projects = $projects;
     }
 
 }

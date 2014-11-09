@@ -38,4 +38,22 @@ class ProjectsListTest extends TestCase {
         );
     }
 
+    /** @test */ function it_filters_all_added_projects()
+    {
+        $this->instance->setProjects([
+            'projects' => [
+                'test-project' => [
+                    'path' => getcwd().'/tests/fixtures'
+                ],
+            ],
+        ]);
+
+        $projects = $this->instance->filterAll(function($projectInfo)
+        {
+            return $projectInfo->getLanguage() == 'ruby';
+        });
+
+        $this->assertCount(0, $projects);
+    }
+
 }
