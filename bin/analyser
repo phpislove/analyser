@@ -6,5 +6,6 @@ require __DIR__.'/../vendor/autoload.php';
 $app = new Symfony\Component\Console\Application('Analyser', 'development');
 
 $app->add(new Phpislove\Analyser\Commands\AddProjectCommand);
+$app->add(new Phpislove\Analyser\Commands\ShowProjectsCommand);
 
 exit ($app->run());
