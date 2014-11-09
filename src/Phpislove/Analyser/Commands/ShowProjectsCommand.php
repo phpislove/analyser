@@ -46,7 +46,7 @@ class ShowProjectsCommand extends Command {
         $language = $input->getOption('language');
 
         $projects = is_null($language) ?
-            $this->projects->getAll() :
+            $this->projects->getAll()['projects'] :
             $this->projects->filterAll(function($project) use($language)
             {
                 return $project->getLanguage() == $language;
@@ -58,6 +58,13 @@ class ShowProjectsCommand extends Command {
         if ( ! is_null($language))
         {
             $output->writeln('Only written in '.ucfirst($language));
+        }
+
+        foreach (array_keys($projects) as $key => $name)
+        {
+            $pslocInfo = $psloc ? ', PSLOC info here' : '';
+
+            $output->writeln(sprintf('#%s %s%s', $key, $name, $pslocInfo));
         }
     }
 
