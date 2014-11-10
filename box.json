@@ -1,5 +1,5 @@
 {
-    "main": "binary/analyser",
+    "main": "bin/analyser",
     "stub": true,
     "output": "analyser.phar",
     "files": [
