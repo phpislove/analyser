@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Phpislove\Analyser\ProjectsList;
+use Phpislove\Analyser\PSLOC;
 
 class ShowProjectsCommand extends Command {
 
@@ -14,12 +15,19 @@ class ShowProjectsCommand extends Command {
     protected $projects;
 
     /**
+     * @var PSLOC
+     */
+    protected $psloc;
+
+    /**
      * @param ProjectsList|null $projects
+     * @param PSLOC|null $psloc
      * @return ShowProjectsCommand
      */
-    public function __construct(ProjectsList $projects = null)
+    public function __construct(ProjectsList $projects = null, PSLOC $psloc = null)
     {
         $this->projects = $projects ?: new ProjectsList(getcwd());
+        $this->psloc = $psloc ?: new PSLOC;
 
         parent::__construct();
     }
@@ -62,7 +70,9 @@ class ShowProjectsCommand extends Command {
 
         foreach (array_keys($projects) as $key => $name)
         {
-            $pslocInfo = $psloc ? ', PSLOC info here' : '';
+            $pslocInfo = $psloc ?
+                sprintf(", %s PSLOC", $this->psloc->directory($projects[$name]['path'])) :
+                '';
 
             $output->writeln(sprintf('#%s %s%s', $key, $name, $pslocInfo));
         }
