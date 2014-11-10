@@ -19,22 +19,24 @@ class PSLOC {
         {
             foreach ($gitIgnore as $prefix)
             {
-                if (strpos(ltrim($path, '/'), $prefix) === 0)
+                if (strpos(ltrim($path, '/'), $prefix) !== false)
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         };
 
         foreach ($files as $file)
         {
-            if (in_array($file->getFilename(), ['..', '.'])
+            if (in_array($file->getFilename(), ['..', '.', '.gitignore'])
                 or $file->isDir() or $isIgnored($file->getRealPath()))
             {
                 continue;
             }
+
+            var_dump($file->getRealPath());
 
             $psloc += $this->count($file->getRealPath());
             // in case you want count(path, language)
