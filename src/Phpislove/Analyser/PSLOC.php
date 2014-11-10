@@ -1,6 +1,6 @@
 <?php namespace Phpislove\Analyser;
 
-use RecursiveDirectoryIterator;
+use RecursiveDirectoryIterator, RecursiveIteratorIterator;
 
 class PSLOC {
 
@@ -10,7 +10,10 @@ class PSLOC {
      */
     public function directory($path)
     {
-        $files = new RecursiveDirectoryIterator($path);
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path)
+        );
+
         $psloc = 0;
 
         $gitIgnore = $this->parseGitIgnoreFile($path);
@@ -35,8 +38,6 @@ class PSLOC {
             {
                 continue;
             }
-
-            var_dump($file->getRealPath());
 
             $psloc += $this->count($file->getRealPath());
             // in case you want count(path, language)
