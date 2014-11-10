@@ -4,4 +4,5 @@
 #3. Add any test case (just to ensure it all works properly)
 #4. Add executable in bin/
 #5. Work on "add-project" command and ProjectsList class
-#6. Implement "show-projects" command <===
+#6. Implement "show-projects" command
+#7. Implement "project-info name" command
