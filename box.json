@@ -1,0 +1,21 @@
+{
+    "main": "binary/analyser",
+    "stub": true,
+    "output": "analyser.phar",
+    "files": [
+        "readme.md"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "in": "src"
+        },
+        {
+            "name": "*.php",
+            "in": "vendor",
+            "exclude": [
+                "bin", "phpunit"
+            ]
+        }
+    ]
+}
