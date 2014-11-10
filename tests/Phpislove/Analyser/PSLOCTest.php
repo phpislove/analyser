@@ -25,4 +25,14 @@ class PSLOCTest extends TestCase {
         );
     }
 
+    /** @test */ function it_scans_gitignore_to_skip_undesirable_files_and_folders()
+    {
+        $this->assertEquals([], $this->instance->parseGitIgnoreFile(uniqid()));
+
+        $this->assertEquals(
+            $this->instance->parseGitIgnoreFile(getcwd().'/tests/fixtures/test-project'),
+            ['vendor', 'composer.lock']
+        );
+    }
+
 }

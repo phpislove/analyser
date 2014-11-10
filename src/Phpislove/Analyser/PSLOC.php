@@ -4,13 +4,34 @@ class PSLOC {
 
     /**
      * @param string $filePath
+     * @param string|null $language
      * @return integer
      */
-    public function count($filePath)
+    public function count($filePath, $language = null)
     {
         $lines = file($filePath, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
 
         return count(array_filter($lines, [$this, 'isNotComment']));
+    }
+
+    /**
+     * @param string $directory
+     * @return array
+     */
+    public function parseGitIgnoreFile($directory)
+    {
+        if (file_exists($path = $directory.'/.gitignore'))
+        {
+            return array_map(
+                function($line)
+                {
+                    return trim($line, '/');
+                },
+                file($path, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES)
+            );
+        }
+
+        return [];
     }
 
     /**
