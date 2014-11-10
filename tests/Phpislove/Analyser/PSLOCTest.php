@@ -35,4 +35,12 @@ class PSLOCTest extends TestCase {
         );
     }
 
+    /** @test */ function it_works_with_directories()
+    {
+        $this->assertEquals(
+            32,
+            $this->instance->directory(getcwd().'/tests/fixtures/test-project')
+        );
+    }
+
 }

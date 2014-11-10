@@ -3,6 +3,15 @@
 class PSLOC {
 
     /**
+     * @param string $path
+     * @return integer
+     */
+    public function directory($path)
+    {
+
+    }
+
+    /**
      * @param string $filePath
      * @param string|null $language
      * @return integer
