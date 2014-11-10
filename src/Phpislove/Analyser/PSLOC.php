@@ -1,5 +1,7 @@
 <?php namespace Phpislove\Analyser;
 
+use RecursiveDirectoryIterator;
+
 class PSLOC {
 
     /**
@@ -8,7 +10,38 @@ class PSLOC {
      */
     public function directory($path)
     {
+        $files = new RecursiveDirectoryIterator($path);
+        $psloc = 0;
 
+        $gitIgnore = $this->parseGitIgnoreFile($path);
+
+        $isIgnored = function($path) use($gitIgnore)
+        {
+            foreach ($gitIgnore as $prefix)
+            {
+                if (strpos(ltrim($path, '/'), $prefix) === 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        foreach ($files as $file)
+        {
+            if (in_array($file->getFilename(), ['..', '.'])
+                or $file->isDir() or $isIgnored($file->getRealPath()))
+            {
+                continue;
+            }
+
+            $psloc += $this->count($file->getRealPath());
+            // in case you want count(path, language)
+            // $language = (new ProjectInfo($path))->getLanguage();
+        }
+
+        return $psloc;
     }
 
     /**

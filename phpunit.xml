@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<phpunit colors="true" processIsolation="true" bootstrap="./tests/bootstrap.php">
+<phpunit colors="true" processIsolation="false" bootstrap="./tests/bootstrap.php">
     <testsuites>
         <testsuite name="Analyser Test Suite">
             <directory suffix=".php">./tests/Phpislove/Analyser</directory>
