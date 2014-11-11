@@ -8,5 +8,6 @@ $app = new Symfony\Component\Console\Application('Analyser', 'development');
 $app->add(new Phpislove\Analyser\Commands\AddProjectCommand);
 $app->add(new Phpislove\Analyser\Commands\ShowProjectsCommand);
 $app->add(new Phpislove\Analyser\Commands\ProjectInfoCommand);
+$app->add(new Phpislove\Analyser\Commands\CaptureStatsCommand);
 
 exit ($app->run());

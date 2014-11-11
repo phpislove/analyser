@@ -16,12 +16,19 @@ class ProjectsList {
     protected $projects = [];
 
     /**
+     * @var PSLOC
+     */
+    protected $psloc;
+
+    /**
      * @param string $directory
+     * @param PSLOC|null $psloc
      * @return ProjectsList
      */
-    public function __construct($directory)
+    public function __construct($directory, PSLOC $psloc = null)
     {
         $this->directory = $directory;
+        $this->psloc = $psloc ?: new PSLOC;
     }
 
     /**
@@ -35,6 +42,7 @@ class ProjectsList {
 
         $this->projects['projects'][$name] = [
             'path' => $directory,
+            'psloc' => $this->psloc->directory($directory),
         ];
 
         $this->save();
