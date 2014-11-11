@@ -32,6 +32,19 @@ class ProjectInfo {
     }
 
     /**
+     * @return array
+     */
+    public function getPackages()
+    {
+        if (isset ($this->info['third-party']['packages']))
+        {
+            return $this->info['third-party']['packages'];
+        }
+
+        return [];
+    }
+
+    /**
      * @return void
      */
     protected function loadInfo()

@@ -22,4 +22,9 @@ class ProjectInfoTest extends TestCase {
         $this->assertEquals('php', $this->instance->getLanguage());
     }
 
+    /** @test */ function it_returns_third_party_packages()
+    {
+        $this->assertEquals($this->instance->getPackages(), ['phpunit/phpunit']);
+    }
+
 }

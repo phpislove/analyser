@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Phpislove\Analyser\ProjectsList;
+use Phpislove\Analyser\ProjectInfo;
 
 class ProjectInfoCommand extends Command {
 
@@ -44,7 +45,7 @@ class ProjectInfoCommand extends Command {
         $name = $input->getArgument('name');
 
         $output->writeln(sprintf(
-            'Showing info about %s (%s)',
+            'Showing info about project "%s" (%s)',
             $name,
             $this->convertProjectName($name)
         ));
