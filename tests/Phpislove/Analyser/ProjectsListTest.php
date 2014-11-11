@@ -44,7 +44,7 @@ class ProjectsListTest extends TestCase {
     {
         $this->instance->setProjects([
             'projects' => [
-                'test-project' => [
+                'my_project' => [
                     'path' => getcwd().'/tests/fixtures'
                 ],
             ],
