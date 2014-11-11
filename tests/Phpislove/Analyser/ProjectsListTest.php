@@ -24,19 +24,19 @@ class ProjectsListTest extends TestCase {
     {
         $path = getcwd().'/tests/fixtures';
 
-        $this->instance->add($path, 'my-project');
+        $this->instance->add($path, 'my_project');
 
-        $this->assertEquals(
-            ['projects' => ['my-project' => ['path' => $path]]],
-            json_decode(file_get_contents(getcwd().'/projects.json'), true)
-        );
+        $projects =
+            json_decode(file_get_contents(getcwd().'/projects.json'), true);
+
+        $this->assertEquals($projects['projects']['my_project']['path'], $path);
     }
 
     /** @test */ function it_returns_all_added_projects()
     {
         $this->assertEquals(
-            $this->instance->getAll(),
-            ['projects' => ['my-project' => ['path' => getcwd().'/tests/fixtures']]]
+            $this->instance->getAll()['projects']['my_project']['path'],
+            getcwd().'/tests/fixtures'
         );
     }
 
