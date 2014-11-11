@@ -58,4 +58,16 @@ class ProjectsListTest extends TestCase {
         $this->assertCount(0, $projects);
     }
 
+    /** @test */ function it_finds_project_by_its_name()
+    {
+        $this->assertEquals(
+            $this->instance->getByName('my_project')['path'],
+            getcwd().'/tests/fixtures'
+        );
+
+        $this->setExpectedException('UnexpectedValueException');
+
+        $this->instance->getByName(uniqid());
+    }
+
 }

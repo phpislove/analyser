@@ -1,6 +1,7 @@
 <?php namespace Phpislove\Analyser;
 
 use Closure;
+use UnexpectedValueException;
 
 class ProjectsList {
 
@@ -61,6 +62,23 @@ class ProjectsList {
         {
             return $filter(new ProjectInfo($project['path']));
         });
+    }
+
+    /**
+     * @param string $name
+     * @throws UnexpectedValueException
+     * @return array
+     */
+    public function getByName($name)
+    {
+        $this->load();
+
+        if (isset ($this->projects['projects'][$name]))
+        {
+            return $this->projects['projects'][$name];
+        }
+
+        throw new UnexpectedValueException("Project '{$name}' does not exist.");
     }
 
     /**
