@@ -6,3 +6,4 @@
 #5. Work on "add-project" command and ProjectsList class
 #6. Implement "show-projects" command
 #7. Implement "project-info name" command
+#8. Implement "capture-stats" command

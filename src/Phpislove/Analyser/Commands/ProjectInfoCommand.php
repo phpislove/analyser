@@ -6,6 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Phpislove\Analyser\ProjectsList;
 use Phpislove\Analyser\ProjectInfo;
+use Phpislove\Analyser\PSLOC;
 
 class ProjectInfoCommand extends Command {
 
@@ -43,12 +44,26 @@ class ProjectInfoCommand extends Command {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
+        $project = $this->projects->getByName($this->convertProjectName($name));
 
         $output->writeln(sprintf(
             'Showing info about project "%s" (%s)',
             $name,
             $this->convertProjectName($name)
         ));
+
+        $output->writeln(sprintf(
+            'Written in %s, %s PSLOC',
+            ucfirst((new ProjectInfo($project['path']))->getLanguage()),
+            (new PSLOC)->directory($project['path'])
+        ));
+
+        if ($packages = (new ProjectInfo($project['path']))->getPackages())
+        {
+            $output->writeln(
+                'Has these third-party packages: '.implode(' ', $packages)
+            );
+        }
     }
 
     /**
